@@ -1,0 +1,21 @@
+# build environment
+FROM node:10-alpine as build
+WORKDIR /usr/app
+ENV PATH /usr/app/node_modules/.bin:$PATH
+ENV REACT_APP_ENV=production
+ENV REACT_APP_MAP_KEY=AIzaSyAYdp6JWyJaD-2Jiil3ggePxUBDIMpD-Kg
+ENV REACT_APP_RSA_PUB_KEY=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCa9mkbw7ZPVCwMbaJmRrUmtHjFsQJv6hdfIxLHeeX/lCw+DPvHCCpHZrGIOS1O7RZpzIe/t3xC5SdSqoVp11Lb4da3acVbJq30BGBlfvjAbeBhTE10hixhZEylojhNpnjzNE7LeS5oXM0D+xHjYRutLGZvKbIcOxFlvQWuI7lHgwIDAQAB
+ENV REACT_APP_AES_KEY=8765432112345678
+ENV REACT_APP_AES_IV=1234567887654321
+ENV REACT_APP_FB_PASS=@abcde[ABCD01234
+COPY package*.json ./
+RUN npm install --silent
+# RUN npm install react-scripts@3.4.1 -g --silent
+COPY . .
+RUN npm run build
+# production environment
+FROM nginx:stable-alpine
+COPY --from=build /usr/app/build /usr/share/nginx/html
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

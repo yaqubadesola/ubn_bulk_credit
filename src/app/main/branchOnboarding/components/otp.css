@@ -1,0 +1,24 @@
+.otpContainer {
+    margin: 0 auto;
+  }
+
+  .rootContainer{
+      text-align: center;
+      margin:2em 5em;
+      padding:2em 5em
+  }
+  
+  .otpInput {
+    width: 5rem !important;
+    height: 5rem;
+    margin: 0 1rem;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .customText,.customButtom{
+      margin:2em;
+      padding:2em 5em;
+  }
